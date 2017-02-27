@@ -84,4 +84,12 @@ RSpec.describe SolitaireDeck do
       expect(deck.deck.first).to eq "A"
     end
   end
+
+  describe "move B" do
+    it "moves B joker down 2 cards" do
+      deck = SolitaireDeck.new
+      deck.move_B
+      expect(deck.deck[1]).to eq "B"
+    end
+  end
 end

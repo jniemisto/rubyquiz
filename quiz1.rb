@@ -47,10 +47,22 @@ class SolitaireDeck
   end
 
   def move_A
-    a_index = @deck.index("A")
-    new_index = a_index + 1
-    new_index = 0 if a_index == @deck.size - 1
-    @deck[a_index] = @deck[new_index]
-    @deck[new_index] = "A"
+    move_card_down("A")
+  end
+
+  def move_B
+    move_card_down("B")
+    move_card_down("B")
+  end
+
+  private
+
+  # moves card down 1 place, if already last card, moves it to the top
+  def move_card_down(card)
+    original_index = @deck.index(card)
+    new_index = original_index + 1
+    new_index = 0 if original_index == @deck.size - 1
+    @deck[original_index] = @deck[new_index]
+    @deck[new_index] = card
   end
 end
