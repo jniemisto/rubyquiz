@@ -67,5 +67,11 @@ RSpec.describe SolitaireDeck do
     it "has 54 cards" do
       expect(SolitaireDeck.new.deck.size).to eq 54
     end
+
+    it "has cards in initial order" do
+      deck = SolitaireDeck.new.deck
+      expect(deck.first).to eq 1
+      expect(deck.last).to eq "B"
+    end
   end
 end
