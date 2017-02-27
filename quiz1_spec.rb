@@ -69,9 +69,19 @@ RSpec.describe SolitaireDeck do
     end
 
     it "has cards in initial order" do
-      deck = SolitaireDeck.new.deck
-      expect(deck.first).to eq 1
-      expect(deck.last).to eq "B"
+      cards = SolitaireDeck.new.deck
+      expect(cards.first).to eq 1
+      expect(cards.last).to eq "B"
+    end
+  end
+
+  describe "move A" do
+    it "moves A joker down 1 card" do
+      deck = SolitaireDeck.new
+      deck.move_A
+      expect(deck.deck.last).to eq "A"
+      deck.move_A
+      expect(deck.deck.first).to eq "A"
     end
   end
 end

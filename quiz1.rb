@@ -46,4 +46,11 @@ class SolitaireDeck
     @deck = (1..52).to_a + %w(A B)
   end
 
+  def move_A
+    a_index = @deck.index("A")
+    new_index = a_index + 1
+    new_index = 0 if a_index == @deck.size - 1
+    @deck[a_index] = @deck[new_index]
+    @deck[new_index] = "A"
+  end
 end
