@@ -28,4 +28,13 @@ class SolitaireCipherEncoder
   def convert_to_number(char)
     CHARACTER_ENCODING_TABLE.index(char) + 1
   end
+
+  def combine_arrays(array1, array2)
+    combined_array = array1.zip(array2).map do |zipped|
+      zipped.reduce(&:+)
+    end
+    combined_array.map do |n|
+      n > 26 ? n - 26 : n
+    end
+  end
 end

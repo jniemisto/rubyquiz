@@ -50,4 +50,14 @@ RSpec.describe SolitaireCipherEncoder do
       expect(SolitaireCipherEncoder.new.convert_to_number_array(input)).to eq output
     end
   end
+
+  describe "combine keystream arrays" do
+    let(:input1) { [3, 15, 4, 5, 9, 14, 18, 21, 2, 25, 12, 9, 22, 5, 12, 15, 14, 7, 5, 18] }
+    let(:input2) {[4, 23, 10, 24, 8, 25, 18, 6, 4, 7, 20, 13, 19, 8, 16, 21, 21, 18, 24, 10]}
+    let(:expected_output) {[7, 12, 14, 3, 17, 13, 10, 1, 6, 6, 6, 22, 15, 13, 2, 10, 9, 25, 3, 2]}
+
+    it "combines arrays correctly" do
+      expect(SolitaireCipherEncoder.new.combine_arrays(input1, input2)).to eq expected_output
+    end
+  end
 end
