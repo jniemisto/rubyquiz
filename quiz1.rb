@@ -76,8 +76,6 @@ end
 
 
 class SolitaireDeck
-  CHARACTER_ENCODING_TABLE = %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)
-
   attr_reader :deck
 
   def initialize
@@ -110,11 +108,9 @@ class SolitaireDeck
     index_a = @deck.index("A")
     index_b = @deck.index("B")
     if index_a < index_b
-      lower_index = index_a
-      higher_index = index_b
+      lower_index, higher_index = index_a, index_b
     else
-      higher_index = index_a
-      lower_index = index_b
+      lower_index, higher_index = index_b, index_a
     end
     part_a = @deck[0..lower_index-1]
     part_b = @deck[lower_index..higher_index]
@@ -138,8 +134,8 @@ class SolitaireDeck
 
   def convert_to_char(number)
     return if %w(A B).include?(number)
-    number-=26 if number >= 26
-    CHARACTER_ENCODING_TABLE[number-1]
+    number -= 26 if number >= 26
+    SolitaireCipher::CHARACTER_ENCODING_TABLE[number-1]
   end
 
   private
