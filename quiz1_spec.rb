@@ -43,11 +43,25 @@ RSpec.describe SolitaireCipherEncoder do
     end
   end
 
+  describe "#convert_to_char" do
+    it "converts 1" do
+      expect(SolitaireCipherEncoder.new.convert_to_char(1)).to eq "A"
+    end
+  end
+
   describe "converts strings to number array" do
     let(:input) { "CODEINRUBYLIVELONGER" }
     let(:output) { [3, 15, 4, 5, 9, 14, 18, 21, 2, 25, 12, 9, 22, 5, 12, 15, 14, 7, 5, 18] }
     it "converts example string" do
       expect(SolitaireCipherEncoder.new.convert_to_number_array(input)).to eq output
+    end
+  end
+
+  describe "converts strings to number array" do
+    let(:input) { [3, 15, 4, 5, 9, 14, 18, 21, 2, 25, 12, 9, 22, 5, 12, 15, 14, 7, 5, 18] }
+    let(:output) { "CODEINRUBYLIVELONGER" }
+    it "converts example array" do
+      expect(SolitaireCipherEncoder.new.convert_to_string(input)).to eq output
     end
   end
 
@@ -130,4 +144,14 @@ RSpec.describe SolitaireDeck do
       expect(deck.keystream(10)).to eq "DWJXHYRFDG"
     end
   end
+end
+
+RSpec.describe SolitaireCipherDecoder do
+  describe "#decode" do
+    it "decodes given example" do
+      decoded = SolitaireCipherDecoder.new.decode("GLNCQ MJAFF FVOMB JIYCB")
+      expect(decoded).to eq "CODEI NRUBY LIVEL ONGER"
+    end
+  end
+
 end

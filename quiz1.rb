@@ -1,8 +1,13 @@
-class SolitaireCipherEncoder
+class SolitaireCipher
   CHARACTER_ENCODING_TABLE = %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)
 
-  def encode(msg)
-    add_whitespaces(apply_padding(strip_characters(msg).upcase))
+  def process(msg)
+    msg = apply_padding(strip_characters(msg).upcase)
+    keystream = SolitaireDeck.new.keystream(msg.size)
+    msg_array = convert_to_number_array(msg)
+    keystream_array = convert_to_number_array(keystream)
+    combined = combine_arrays(msg_array, keystream_array)
+    add_whitespaces(convert_to_string(combined))
   end
 
   def strip_characters(msg)
@@ -25,8 +30,23 @@ class SolitaireCipherEncoder
     msg.chars.map { |char| convert_to_number(char) }
   end
 
+  def convert_to_string(numbers)
+    numbers.map { |n| convert_to_char(n) }.join
+  end
+
   def convert_to_number(char)
     CHARACTER_ENCODING_TABLE.index(char) + 1
+  end
+
+  def convert_to_char(number)
+    CHARACTER_ENCODING_TABLE[number-1]
+  end
+
+end
+
+class SolitaireCipherEncoder < SolitaireCipher
+  def encode(msg)
+    process(msg)
   end
 
   def combine_arrays(array1, array2)
@@ -38,6 +58,22 @@ class SolitaireCipherEncoder
     end
   end
 end
+
+class SolitaireCipherDecoder < SolitaireCipher
+  def decode(msg)
+    process(msg)
+  end
+
+  def combine_arrays(array1, array2)
+    combined_array = array1.zip(array2).map do |zipped|
+      zipped.reduce(&:-)
+    end
+    combined_array.map do |n|
+      n < 0 ? n + 26 : n
+    end
+  end
+end
+
 
 class SolitaireDeck
   CHARACTER_ENCODING_TABLE = %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)
@@ -102,8 +138,6 @@ class SolitaireDeck
 
   def convert_to_char(number)
     return if %w(A B).include?(number)
-    puts number
-    puts %w(A B).include?(number)
     number-=26 if number >= 26
     CHARACTER_ENCODING_TABLE[number-1]
   end
