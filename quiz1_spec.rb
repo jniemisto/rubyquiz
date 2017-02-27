@@ -61,3 +61,11 @@ RSpec.describe SolitaireCipherEncoder do
     end
   end
 end
+
+RSpec.describe SolitaireDeck do
+  describe "new deck" do
+    it "has 54 cards" do
+      expect(SolitaireDeck.new.deck.size).to eq 54
+    end
+  end
+end

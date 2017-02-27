@@ -38,3 +38,12 @@ class SolitaireCipherEncoder
     end
   end
 end
+
+class SolitaireDeck
+  attr_reader :deck
+
+  def initialize
+    @deck = (1..52).to_a + %w(A B)
+  end
+
+end
