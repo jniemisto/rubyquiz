@@ -36,4 +36,18 @@ RSpec.describe SolitaireCipherEncoder do
       expect(converted).to eq "12345 67890 1"
     end
   end
+
+  describe "convert characters to numbers" do
+    it "converts A" do
+      expect(SolitaireCipherEncoder.new.convert_to_number("A")).to eq 1
+    end
+  end
+
+  describe "converts strings to number array" do
+    let(:input) { "CODEINRUBYLIVELONGER" }
+    let(:output) { [3, 15, 4, 5, 9, 14, 18, 21, 2, 25, 12, 9, 22, 5, 12, 15, 14, 7, 5, 18] }
+    it "converts example string" do
+      expect(SolitaireCipherEncoder.new.convert_to_number_array(input)).to eq output
+    end
+  end
 end
