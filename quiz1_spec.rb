@@ -75,21 +75,59 @@ RSpec.describe SolitaireDeck do
     end
   end
 
-  describe "move A" do
+  describe "#move_A" do
     it "moves A joker down 1 card" do
       deck = SolitaireDeck.new
       deck.move_A
       expect(deck.deck.last).to eq "A"
       deck.move_A
-      expect(deck.deck.first).to eq "A"
+      expect(deck.deck[1]).to eq "A"
     end
   end
 
-  describe "move B" do
+  describe "#move_B" do
     it "moves B joker down 2 cards" do
       deck = SolitaireDeck.new
       deck.move_B
-      expect(deck.deck[1]).to eq "B"
+      expect(deck.deck[2]).to eq "B"
+    end
+  end
+
+  describe "#triple_cut" do
+    it "does the triple cut" do
+      deck = SolitaireDeck.new
+      deck.move_B
+      deck.triple_cut
+      expect(deck.deck.first).to eq "B"
+      expect(deck.deck.last).to eq 2
+    end
+  end
+
+  describe "#count_cut" do
+    it "does the count cut" do
+      deck = SolitaireDeck.new
+      deck.move_B
+      deck.move_A
+      deck.count_cut
+      expect(deck.deck[-2]).to eq 50
+    end
+
+    it "works when a joker is in the top" do
+      deck = SolitaireDeck.new
+      deck.count_cut
+      expect(deck.deck.last).to eq "B"
+    end
+  end
+
+  describe "#keystream" do
+    it "gives one character" do
+      deck = SolitaireDeck.new
+      expect(deck.keystream(1)).to eq "D"
+    end
+
+    it "gives multiple characters" do
+      deck = SolitaireDeck.new
+      expect(deck.keystream(10)).to eq "DWJXHYRFDG"
     end
   end
 end
